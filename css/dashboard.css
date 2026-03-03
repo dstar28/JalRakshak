@@ -1,0 +1,322 @@
+/* ================= GLOBAL ================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: linear-gradient(180deg, #eef8f6 0%, #e3f4f1 100%);
+    color: #0f2e2b;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+    background: linear-gradient(90deg, #0f766e, #14b8a6);
+    padding: 18px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.brand-icon {
+    margin-right: 10px;
+    font-size: 20px;
+    color: #d1fae5;
+}
+
+.nav-links a {
+    margin-left: 25px;
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffffff;
+    border-bottom: 2px solid #d1fae5;
+    padding-bottom: 3px;
+}
+
+/* ================= PAGE HEADER ================= */
+
+.page-header {
+    text-align: center;
+    padding: 50px 20px 30px 20px;
+}
+
+.page-header h1 {
+    font-size: 34px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0f766e, #14b8a6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-icon {
+    margin-right: 12px;
+    font-size: 20px;
+    color: #0f766e;
+}
+
+.page-header p {
+    color: #3f6f69;
+    margin-top: 8px;
+    font-size: 15px;
+}
+
+/* ================= MAIN CONTENT ================= */
+
+.main-content {
+    padding: 20px 8% 60px 8%;
+}
+
+/* ================= ALERT BANNER ================= */
+
+.alert-banner {
+    background: linear-gradient(90deg, #fee2e2, #fecaca);
+    border-left: 6px solid #dc2626;
+    padding: 16px 20px;
+    border-radius: 14px;
+    margin-bottom: 30px;
+    font-weight: 500;
+    color: #7f1d1d;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 8px 20px rgba(220, 38, 38, 0.08);
+}
+
+/* ================= CARD DESIGN ================= */
+
+.card {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px);
+    border-radius: 18px;
+    border: 1px solid rgba(0, 150, 136, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 128, 115, 0.08);
+    margin-bottom: 30px;
+    transition: 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 45px rgba(0, 128, 115, 0.15);
+}
+
+.card-header-custom {
+    padding: 18px 25px;
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(90deg, #d1fae5, #ccfbf1);
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    color: #065f46;
+}
+
+/* ================= RISK CARDS ================= */
+/* ================= DYNAMIC RISK CARDS ================= */
+
+.risk-card {
+    padding: 24px;
+    border-radius: 18px;
+    text-align: center;
+    transition: all 0.35s ease;
+    background: #ffffff;
+    position: relative;
+    border: 2px solid transparent;
+}
+
+.risk-card h5 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.risk-score {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.risk-label {
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+/* ================= LOW RISK ================= */
+
+.low-risk {
+    border-color: #10b981;
+    background: linear-gradient(145deg, #ecfdf5, #d1fae5);
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.15);
+}
+
+.low-risk .risk-score {
+    color: #047857;
+}
+
+.low-risk .risk-label {
+    color: #065f46;
+}
+
+/* ================= MODERATE RISK ================= */
+
+.moderate-risk {
+    border-color: #f59e0b;
+    background: linear-gradient(145deg, #fffbeb, #fef3c7);
+    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.18);
+}
+
+.moderate-risk .risk-score {
+    color: #b45309;
+}
+
+.moderate-risk .risk-label {
+    color: #92400e;
+}
+
+/* ================= HIGH RISK ================= */
+
+.high-risk {
+    border-color: #dc2626;
+    background: linear-gradient(145deg, #fef2f2, #fecaca);
+    box-shadow: 0 12px 30px rgba(220, 38, 38, 0.25);
+}
+
+.high-risk .risk-score {
+    color: #b91c1c;
+}
+
+.high-risk .risk-label {
+    color: #7f1d1d;
+}
+
+/* Pulse animation for high risk */
+
+.high-risk::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 20px;
+    border: 2px solid rgba(220, 38, 38, 0.4);
+    animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    70% {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Hover Lift */
+
+.risk-card:hover {
+    transform: translateY(-8px);
+}
+/* ================= MAP ================= */
+
+#map {
+    height: 420px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 128, 115, 0.08);
+}
+
+.map-legend {
+    padding: 15px 25px;
+    display: flex;
+    gap: 25px;
+    font-size: 14px;
+    color: #3f6f69;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+}
+
+.legend-dot.high {
+    background: #dc2626;
+}
+
+.legend-dot.moderate {
+    background: #f59e0b;
+}
+
+.legend-dot.low {
+    background: #10b981;
+}
+
+/* ================= CHARTS ================= */
+
+.chart-wrapper {
+    padding: 25px;
+}
+
+canvas {
+    max-height: 350px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 15px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .map-legend {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .page-header h1 {
+        font-size: 26px;
+        text-align: center;
+    }
+}

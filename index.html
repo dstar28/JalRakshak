@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JalRakshak - Rural Health Alert</title>
+    <link rel="stylesheet" href="css/index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="badge">AI-Powered Health Surveillance</div>
+        <h1>JalRakshak</h1>
+        <h2>Rural Health Alert</h2>
+        <p>
+            AI-powered early warning system protecting rural communities from
+            water-borne disease outbreaks across Northeast India.
+        </p>
+
+        <div class="hero-buttons">
+            <button class="primary-btn">Health Worker Login</button>
+            <button class="secondary-btn">View Dashboard</button>
+            <button class="secondary-btn">Patient Portal</button>
+        </div>
+    </section>
+
+    <!-- STATS SECTION -->
+    <section class="stats">
+        <div class="stat-card">
+            <h3>6+</h3>
+            <p>Villages Protected</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>94,000+</h3>
+            <p>Population Covered</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>87%</h3>
+            <p>Prediction Accuracy</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>24/7</h3>
+            <p>AI Monitoring</p>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works">
+        <h2>How It Works</h2>
+        <p class="subtitle">Three connected steps that keep communities safe.</p>
+
+        <div class="steps">
+            <div class="step-card">
+                <h3>Real-Time Surveillance</h3>
+                <p>
+                    Health workers upload daily case reports.
+                    AI analyzes rainfall, population density,
+                    and disease patterns.
+                </p>
+            </div>
+
+            <div class="step-card">
+                <h3>Geographic Risk Heatmap</h3>
+                <p>
+                    Interactive map highlights high-risk zones
+                    to enable faster intervention.
+                </p>
+            </div>
+
+            <div class="step-card">
+                <h3>Patient Self-Assessment</h3>
+                <p>
+                    Villagers check symptoms and receive
+                    instant AI-based risk guidance.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY SECTION -->
+    <section class="why">
+        <h2>Why JalRakshak?</h2>
+        <p>
+            "Jal" means water. "Rakshak" means protector.
+        </p>
+        <p>
+            JalRakshak is a digital guardian — protecting rural communities
+            from hidden water-borne threats through the power of AI and real-time data.
+        </p>
+    </section>
+
+    <footer>
+        © 2026 JalRakshak. Built for rural Northeast India.
+    </footer>
+
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const buttons = document.querySelectorAll(".hero-buttons button");
+
+    // Health Worker Login → admin.html
+    buttons[0].addEventListener("click", function () {
+      window.location.href = "admin.html";
+    });
+
+    // View Dashboard → dashboard.html
+    buttons[1].addEventListener("click", function () {
+      window.location.href = "dashboard.html";
+    });
+
+    // Patient Portal → patient.html
+    buttons[2].addEventListener("click", function () {
+      window.location.href = "patient.html";
+    });
+
+  });
+</script>
+</body>
+</html>

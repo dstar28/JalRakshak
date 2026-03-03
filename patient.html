@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Patient Portal — JalRakshak</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+
+  <!-- Custom CSS -->
+  <link href="css/patient.css" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+  <a class="navbar-brand" href="index.html">
+    <i class="fa-solid fa-droplet brand-icon"></i>
+    JalRakshak
+  </a>
+
+  <div class="nav-links">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="admin.html">Admin</a>
+  </div>
+</nav>
+
+<!-- ================= PAGE HEADER ================= -->
+<section class="page-header">
+  <h1>
+    <i class="fa-solid fa-stethoscope section-icon"></i>
+    Patient Support Portal
+  </h1>
+  <p>Check your symptoms and receive instant AI-guided health recommendations</p>
+</section>
+
+<!-- ================= MAIN CONTENT ================= -->
+<div class="main-content">
+  <div class="row g-4">
+
+    <!-- ================= SYMPTOM CHECKER ================= -->
+    <div class="col-lg-6">
+      <div class="card">
+
+        <div class="card-header-custom">
+          <i class="fa-solid fa-magnifying-glass section-icon"></i>
+          Symptom Checker
+        </div>
+
+        <div class="card-body-custom">
+
+          <p class="info-text">
+            Select all symptoms you are currently experiencing:
+          </p>
+
+          <div class="symptom-item">
+            <input type="checkbox" id="sym-vomiting"/>
+            <label for="sym-vomiting">Vomiting</label>
+          </div>
+
+          <div class="symptom-item">
+            <input type="checkbox" id="sym-fever"/>
+            <label for="sym-fever">Fever</label>
+          </div>
+
+          <div class="symptom-item">
+            <input type="checkbox" id="sym-diarrhea"/>
+            <label for="sym-diarrhea">Diarrhea</label>
+          </div>
+
+          <div class="symptom-item">
+            <input type="checkbox" id="sym-dehydration"/>
+            <label for="sym-dehydration">Dehydration / Dizziness</label>
+          </div>
+
+          <div class="symptom-item">
+            <input type="checkbox" id="sym-abdominal"/>
+            <label for="sym-abdominal">Abdominal Pain / Cramps</label>
+          </div>
+
+          <button class="btn-check-risk" id="checkRiskBtn">
+            <i class="fa-solid fa-brain"></i>
+            Analyze My Risk
+          </button>
+
+          <!-- Result Panel -->
+          <div id="symptomResult" class="result-panel"></div>
+
+        </div>
+      </div>
+
+      <!-- ================= PREVENTION TIPS ================= -->
+      <div class="card">
+        <div class="card-header-custom">
+          <i class="fa-solid fa-shield-heart section-icon"></i>
+          Prevention Guidelines
+        </div>
+
+        <div class="card-body-custom">
+
+          <div class="tips-section">
+            <h6>Water & Hygiene</h6>
+            <div class="tip-item">Always boil or filter drinking water</div>
+            <div class="tip-item">Wash hands with soap before meals and after toilet use</div>
+            <div class="tip-item">Avoid open defecation near water sources</div>
+            <div class="tip-item">Use covered water storage containers</div>
+          </div>
+
+          <div class="tips-section mt-3">
+            <h6>Food Safety</h6>
+            <div class="tip-item">Eat freshly cooked, hot food only</div>
+            <div class="tip-item">Wash fruits and vegetables before consumption</div>
+            <div class="tip-item">Avoid raw or undercooked seafood</div>
+            <div class="tip-item">Do not drink untreated river or pond water</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= VILLAGE RISK & EMERGENCY ================= -->
+    <div class="col-lg-6">
+
+      <!-- Village Risk -->
+      <div class="card">
+        <div class="card-header-custom">
+          <i class="fa-solid fa-location-dot section-icon"></i>
+          Current Village Risk Status
+        </div>
+
+        <div class="card-body-custom">
+          <p class="info-text">
+            Live risk scores (0–100) for monitored villages:
+          </p>
+
+          <div id="villageRiskList">
+            <!-- Populated by patient.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Emergency Contacts -->
+      <div class="card">
+        <div class="card-header-custom">
+          <i class="fa-solid fa-phone-volume section-icon"></i>
+          Emergency Contacts
+        </div>
+
+        <div class="card-body-custom">
+
+          <div class="contact-card">
+            <div class="contact-title">National Health Helpline</div>
+            <div class="contact-number">104</div>
+            <div class="contact-note">24/7 Free Medical Advice</div>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-title">Assam Health Department</div>
+            <div class="contact-number">0361-2237718</div>
+            <div class="contact-note">Epidemic Control Cell</div>
+          </div>
+
+          <div class="contact-card emergency">
+            <div class="contact-title">Emergency Services</div>
+            <div class="contact-number">112</div>
+            <div class="contact-note">All Emergencies</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/patient.js"></script>
+
+</body>
+</html>

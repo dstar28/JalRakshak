@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — JalRakshak</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <!-- Leaflet -->
+  <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+
+  <!-- Custom CSS -->
+  <link href="css/dashboard.css" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+  <a class="navbar-brand" href="index.html">
+    <i class="fa-solid fa-droplet brand-icon"></i>
+    JalRakshak
+  </a>
+
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="admin.html">Admin</a>
+    <a href="patient.html">Patient</a>
+  </div>
+</nav>
+
+<!-- ================= PAGE HEADER ================= -->
+<section class="page-header">
+  <h1>
+    <i class="fa-solid fa-chart-line section-icon"></i>
+    AI Monitoring Dashboard
+  </h1>
+  <p>Real-time disease surveillance across Northeast India</p>
+</section>
+
+<div class="container-fluid main-content">
+
+  <!-- ALERT -->
+  <div class="alert-banner">
+    <i class="fa-solid fa-triangle-exclamation me-2"></i>
+    <strong>Possible Outbreak Warning:</strong>
+    Dhemaji shows critical risk (Score: 91).
+    Immediate field response recommended.
+  </div>
+
+  <!-- RISK SCORES -->
+  <div class="card">
+    <div class="card-header-custom">
+      <i class="fa-solid fa-house-medical section-icon"></i>
+      Village Risk Scores
+    </div>
+    <div class="card-body">
+      <div class="row g-4" id="riskCards">
+        <!-- Dynamic Risk Cards -->
+      </div>
+    </div>
+  </div>
+
+  <!-- MAP -->
+  <div class="card">
+    <div class="card-header-custom">
+      <i class="fa-solid fa-map-location-dot section-icon"></i>
+      Geographic Risk Heatmap
+    </div>
+
+    <div class="card-body pt-2">
+      <div id="map"></div>
+    </div>
+
+    <div class="map-legend">
+      <div class="legend-item">
+        <div class="legend-dot high"></div>
+        High Risk (≥70)
+      </div>
+
+      <div class="legend-item">
+        <div class="legend-dot moderate"></div>
+        Moderate Risk (40–69)
+      </div>
+
+      <div class="legend-item">
+        <div class="legend-dot low"></div>
+        Low Risk (&lt;40)
+      </div>
+    </div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="row g-4 mb-4">
+    
+    <div class="col-lg-6">
+      <div class="card h-100">
+        <div class="card-header-custom">
+          <i class="fa-solid fa-chart-area section-icon"></i>
+          Disease Trend (6 Months)
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card h-100">
+        <div class="card-header-custom">
+          <i class="fa-solid fa-cloud-rain section-icon"></i>
+          Rainfall vs Cases
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="rainfallChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- AI Prediction -->
+  <div class="card">
+    <div class="card-header-custom">
+      <i class="fa-solid fa-brain section-icon"></i>
+      AI Predicted vs Actual Cases
+    </div>
+    <div class="chart-wrapper">
+      <canvas id="predictionChart"></canvas>
+    </div>
+  </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/data.js"></script>
+<script src="js/dashboard.js"></script>
+
+</body>
+</html>
