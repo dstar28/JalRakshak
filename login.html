@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Font Awesome (for droplet icon) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Google Fonts (match your dashboard/admin style) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+
+  <meta charset="UTF-8">
+  <title>Login — JalRakshak</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="css/login.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+  <a href="index.html" class="brand">
+    <i class="fa-solid fa-droplet brand-icon"></i>
+    JalRakshak
+  </a>
+</nav>
+
+<!-- ================= MAIN ================= -->
+<div class="container">
+
+  <!-- LOGIN -->
+  <div class="card">
+    <h2>Login</h2>
+
+    <input type="text" id="loginUsername" placeholder="Username">
+    <input type="password" id="loginPassword" placeholder="Password">
+
+    <button id="loginBtn">Login</button>
+  </div>
+
+  <!-- SIGN UP -->
+  <div class="card">
+    <h2>Sign Up</h2>
+
+    <input type="text" id="signupUsername" placeholder="Username">
+    <input type="password" id="signupPassword" placeholder="Password">
+    <input type="password" id="confirmPassword" placeholder="Confirm Password">
+
+    <button id="signupBtn">Create Account</button>
+
+    <p id="errorMsg"></p>
+  </div>
+
+</div>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+  const SUPABASE_URL = "https://ckhloxjldjmexelcjwqx.supabase.co";
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNraGxveGpsZGptZXhlbGNqd3F4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3NTA0NzcsImV4cCI6MjA4OTMyNjQ3N30.awjhebQyvbdkitEK7pyfNc5sUxzY_th6YN_kDDU_exY";
+
+  const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const signupBtn = document.getElementById("signupBtn");
+  const loginBtn = document.getElementById("loginBtn");
+  const errorMsg = document.getElementById("errorMsg");
+
+  // ================= SIGN UP =================
+  signupBtn.addEventListener("click", async () => {
+    const username = document.getElementById("signupUsername").value.trim();
+    const password = document.getElementById("signupPassword").value;
+    const confirm = document.getElementById("confirmPassword").value;
+
+    const usernameRegex = /^[a-zA-Z0-9_]+$/;
+
+    // Username validation
+    if (!usernameRegex.test(username)) {
+      errorMsg.textContent = "Only letters, numbers, underscore allowed";
+      errorMsg.style.color = "red";
+      return;
+    }
+
+    // Password match
+    if (password !== confirm) {
+      errorMsg.textContent = "Passwords do not match!";
+      errorMsg.style.color = "red";
+      return;
+    }
+
+    // Check if username exists
+    const { data: existingUser } = await client
+      .from("users")
+      .select("*")
+      .eq("username", username);
+
+    if (existingUser.length > 0) {
+      errorMsg.textContent = "Username already taken!";
+      errorMsg.style.color = "red";
+      return;
+    }
+
+    // Insert user
+    const { error } = await client
+      .from("users")
+      .insert([{ username, password }]);
+
+    if (error) {
+      errorMsg.textContent = "Error creating account";
+      errorMsg.style.color = "red";
+    } else {
+      errorMsg.textContent = "Account created successfully!";
+      errorMsg.style.color = "green";
+    }
+  });
+
+  // ================= LOGIN =================
+  loginBtn.addEventListener("click", async () => {
+    const username = document.getElementById("loginUsername").value.trim();
+    const password = document.getElementById("loginPassword").value;
+
+    const { data: user } = await client
+      .from("users")
+      .select("*")
+      .eq("username", username)
+      .eq("password", password);
+
+    if (user.length > 0) {
+      window.location.href = "admin.html";
+    } else {
+      errorMsg.textContent = "Invalid username or password";
+      errorMsg.style.color = "red";
+    }
+  });
+</script>
+
+</body>
+</html>
