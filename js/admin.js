@@ -1,79 +1,78 @@
-document.addEventListener('DOMContentLoaded', () => {
-  renderHistoricalTable();
-  document.getElementById('predictBtn')
-    .addEventListener('click', generatePrediction);
-});
+document.getElementById("predictBtn").addEventListener("click", predictOutbreak);
 
-/* Historical Table */
+async function predictOutbreak() {
 
-function renderHistoricalTable() {
-  const tbody = document.getElementById('historyTableBody');
-  if (!tbody) return;
+  console.log("Button clicked");
 
-  historicalCaseData.forEach(row => {
-    tbody.innerHTML += `
-      <tr>
-        <td>${row.date}</td>
-        <td><strong>${row.village}</strong></td>
-        <td>${row.diarrhea}</td>
-        <td>${row.cholera}</td>
-        <td>${row.typhoid}</td>
-        <td>${row.rainfall} mm</td>
-        <td><span class="risk-pill ${row.risk}">${row.risk}</span></td>
-      </tr>`;
-  });
-}
+  // get values
+  const rainfall = parseFloat(document.getElementById("rainfall").value) || 0;
+  const diarrhea = parseFloat(document.getElementById("diarrhea").value) || 0;
+  const cholera = parseFloat(document.getElementById("cholera").value) || 0;
+  const typhoid = parseFloat(document.getElementById("typhoid").value) || 0;
 
-/* AI Prediction */
+  const population = 12000;
+  const date = document.getElementById("reportDate").value;
 
-function generatePrediction() {
-
-  const diarrhea = parseFloat(document.getElementById('diarrhea').value) || 0;
-  const cholera  = parseFloat(document.getElementById('cholera').value)  || 0;
-  const typhoid  = parseFloat(document.getElementById('typhoid').value)  || 0;
-  const rainfall = parseFloat(document.getElementById('rainfall').value) || 0;
-
-  const score = Math.min(100, Math.round(
-    (diarrhea * 2.5) +
-    (cholera * 8) +
-    (typhoid * 4) +
-    (rainfall * 0.3) +
-    (Math.random() * 10)
-  ));
-
-  let level, label;
-
-  if (score >= 65) {
-    level = 'high';
-    label = 'HIGH RISK';
-  }
-  else if (score >= 35) {
-    level = 'moderate';
-    label = 'MODERATE RISK';
-  }
-  else {
-    level = 'low';
-    label = 'LOW RISK';
+  // validation
+  if (!date) {
+    alert("Please select a date");
+    return;
   }
 
-  const resultEl = document.getElementById('predictionResult');
-  resultEl.className = `prediction-result ${level}`;
-  resultEl.style.display = 'block';
+  const d = new Date(date);
+  const month = d.getMonth() + 1;
+  const year = d.getFullYear();
 
-  resultEl.innerHTML = `
-    <div class="prob-label">Outbreak Probability</div>
-    <div class="prob-big">${score}%</div>
-    <div class="risk-badge-big">${label}</div>
-    <p style="margin-top:.75rem;opacity:.9;font-size:.9rem">
-      ${
-        level === 'high'
-        ? 'Immediate intervention required. Alert district health authorities.'
-        : level === 'moderate'
-        ? 'Increase surveillance and conduct water quality checks.'
-        : 'Situation stable. Continue routine monitoring.'
-      }
-    </p>
-  `;
+  try {
 
-  resultEl.scrollIntoView({ behavior:'smooth', block:'center' });
+    const response = await fetch("http://127.0.0.1:5000/predict", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        rainfall,
+        diarrhea,
+        cholera,
+        typhoid,
+        population,
+        month,
+        year
+      })
+    });
+
+    const result = await response.json();
+
+    console.log("API Response:", result);
+
+    const prob = result.outbreakProbability;
+
+    // determine risk level
+    let risk = "Low";
+    let cssClass = "low";
+
+    if (prob > 70) {
+      risk = "High";
+      cssClass = "high";
+    } else if (prob > 40) {
+      risk = "Moderate";
+      cssClass = "moderate";
+    }
+
+    // update UI
+    const resultBox = document.getElementById("predictionResult");
+
+    resultBox.style.display = "block";
+    resultBox.className = "prediction-result " + cssClass;
+
+    resultBox.innerHTML = `
+      <div class="prob-big">${prob}%</div>
+      <div class="risk-badge-big">${risk} Risk</div>
+      <div>AI Predicted Outbreak Probability</div>
+    `;
+
+  } catch (error) {
+    console.error("Error:", error);
+    alert("❌ Unable to connect to backend. Make sure Flask is running.");
+  }
 }

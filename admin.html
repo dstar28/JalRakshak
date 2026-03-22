@@ -17,6 +17,7 @@
   <!-- Custom CSS -->
   <link href="css/admin.css" rel="stylesheet"/>
 </head>
+
 <body>
 
 <!-- ================= NAVBAR ================= -->
@@ -32,6 +33,7 @@
   </div>
 </nav>
 
+
 <!-- ================= PAGE HEADER ================= -->
 <section class="page-header">
   <h1>
@@ -41,9 +43,11 @@
   <p>Enter daily case data and generate AI-based outbreak predictions</p>
 </section>
 
+
 <!-- ================= MAIN CONTENT ================= -->
 <div class="main-content">
   <div class="row g-4">
+
 
     <!-- ================= DATA ENTRY FORM ================= -->
     <div class="col-lg-5">
@@ -56,50 +60,72 @@
 
         <div class="card-body-custom">
 
+          <!-- Village -->
           <div class="mb-3">
             <label class="form-label">Village Name</label>
             <select class="form-select" id="villageName">
               <option value="">Select village...</option>
               <option>Majuli</option>
-              <option>Dibrugarh</option>
               <option>Dhemaji</option>
-              <option>Sivasagar</option>
-              <option>Jorhat</option>
-              <option>Tinsukia</option>
+              <option>Pasighat</option>
+              <option>Ziro</option>
+              <option>ShillongRural</option>
+              <option>Tura</option>
+              <option>Lunglei</option>
+              <option>Champhai</option>
             </select>
           </div>
 
+          <!-- Date -->
           <div class="mb-3">
             <label class="form-label">Date</label>
             <input type="date" class="form-control" id="reportDate"/>
           </div>
 
+
+          <!-- Cases -->
           <div class="row g-2 mb-3">
+
             <div class="col-6">
               <label class="form-label">Diarrhea Cases</label>
-              <input type="number" class="form-control" id="diarrhea" placeholder="0" min="0"/>
+              <input type="number" class="form-control" id="diarrhea" min="0"/>
             </div>
+
             <div class="col-6">
               <label class="form-label">Cholera Cases</label>
-              <input type="number" class="form-control" id="cholera" placeholder="0" min="0"/>
+              <input type="number" class="form-control" id="cholera" min="0"/>
             </div>
+
           </div>
+
 
           <div class="row g-2 mb-3">
+
             <div class="col-6">
               <label class="form-label">Typhoid Cases</label>
-              <input type="number" class="form-control" id="typhoid" placeholder="0" min="0"/>
+              <input type="number" class="form-control" id="typhoid" min="0"/>
             </div>
+
             <div class="col-6">
               <label class="form-label">Rainfall (mm)</label>
-              <input type="number" class="form-control" id="rainfall" placeholder="0" min="0"/>
+              <input type="number" class="form-control" id="rainfall" min="0"/>
             </div>
+
           </div>
 
+
+          <!-- Hidden ML fields -->
+          <input type="hidden" id="population" value="12000">
+          <input type="hidden" id="month">
+          <input type="hidden" id="year">
+
+
+          <!-- Predict button -->
           <button class="btn-predict" id="predictBtn">
             <i class="fa-solid fa-brain"></i>
             Generate Outbreak Prediction
           </button>
+
 
           <!-- Prediction Result -->
           <div class="prediction-result" id="predictionResult"></div>
@@ -108,7 +134,9 @@
       </div>
     </div>
 
-    <!-- ================= HISTORICAL DATA TABLE ================= -->
+
+
+    <!-- ================= HISTORY TABLE ================= -->
     <div class="col-lg-7">
       <div class="card">
 
@@ -119,6 +147,7 @@
 
         <div style="overflow-x:auto;">
           <table class="data-table">
+
             <thead>
               <tr>
                 <th>Date</th>
@@ -130,22 +159,28 @@
                 <th>Risk</th>
               </tr>
             </thead>
+
             <tbody id="historyTableBody">
-              <!-- Filled dynamically by JS -->
             </tbody>
+
           </table>
         </div>
 
       </div>
     </div>
 
+
   </div>
 </div>
+
+
 
 <!-- ================= SCRIPTS ================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <script src="js/data.js"></script>
+
 <script src="js/admin.js"></script>
 
 </body>
