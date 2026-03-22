@@ -38,13 +38,36 @@
     <i class="fa-solid fa-stethoscope section-icon"></i>
     Patient Support Portal
   </h1>
-  <p>Check your symptoms and receive instant AI-guided health recommendations</p>
+  <p>Check your symptoms and receive AI-based health predictions</p>
 </section>
 
 <!-- ================= MAIN CONTENT ================= -->
 <div class="main-content">
   <div class="row g-4">
+<!-- ADD THIS ABOVE SYMPTOMS -->
 
+<div class="mb-3">
+  <label>Select Your Village</label>
+  <select id="villageSelect" class="form-select">
+    <option value="Majuli">Majuli</option>
+    <option value="Dibrugarh">Dibrugarh</option>
+    <option value="Dhemaji">Dhemaji</option>
+    <option value="Jorhat">Jorhat</option>
+  </select>
+</div>
+
+<div class="mb-3">
+  <label>Drinking Water Source</label>
+  <select id="waterSource" class="form-select">
+    <option value="0">Safe (Filtered/Boiled)</option>
+    <option value="1">Unsafe (River/Handpump)</option>
+  </select>
+</div>
+
+<div class="mb-3">
+  <label>Days since symptoms started</label>
+  <input type="number" id="days" class="form-control" min="1" max="7" value="2">
+</div>
     <!-- ================= SYMPTOM CHECKER ================= -->
     <div class="col-lg-6">
       <div class="card">
@@ -60,6 +83,7 @@
             Select all symptoms you are currently experiencing:
           </p>
 
+          <!-- Symptoms -->
           <div class="symptom-item">
             <input type="checkbox" id="sym-vomiting"/>
             <label for="sym-vomiting">Vomiting</label>
@@ -85,18 +109,26 @@
             <label for="sym-abdominal">Abdominal Pain / Cramps</label>
           </div>
 
-          <button class="btn-check-risk" id="checkRiskBtn">
+          <!-- Hidden ML Inputs -->
+          <input type="hidden" id="weakness" value="1">
+          <input type="hidden" id="unsafeWater" value="1">
+          <input type="hidden" id="othersSick" value="1">
+          <input type="hidden" id="days" value="2">
+          <input type="hidden" id="villageRisk" value="70">
+
+          <!-- Button -->
+          <button class="btn-check-risk" id="checkRiskBtn" type="button">
             <i class="fa-solid fa-brain"></i>
             Analyze My Risk
           </button>
 
-          <!-- Result Panel -->
-          <div id="symptomResult" class="result-panel"></div>
+          <!-- Result -->
+          <div id="symptomResult" class="result-panel mt-3"></div>
 
         </div>
       </div>
 
-      <!-- ================= PREVENTION TIPS ================= -->
+      <!-- ================= PREVENTION ================= -->
       <div class="card">
         <div class="card-header-custom">
           <i class="fa-solid fa-shield-heart section-icon"></i>
@@ -107,46 +139,42 @@
 
           <div class="tips-section">
             <h6>Water & Hygiene</h6>
-            <div class="tip-item">Always boil or filter drinking water</div>
-            <div class="tip-item">Wash hands with soap before meals and after toilet use</div>
-            <div class="tip-item">Avoid open defecation near water sources</div>
-            <div class="tip-item">Use covered water storage containers</div>
+            <div class="tip-item">Boil or filter drinking water</div>
+            <div class="tip-item">Wash hands regularly</div>
+            <div class="tip-item">Avoid contaminated sources</div>
           </div>
 
           <div class="tips-section mt-3">
             <h6>Food Safety</h6>
-            <div class="tip-item">Eat freshly cooked, hot food only</div>
-            <div class="tip-item">Wash fruits and vegetables before consumption</div>
-            <div class="tip-item">Avoid raw or undercooked seafood</div>
-            <div class="tip-item">Do not drink untreated river or pond water</div>
+            <div class="tip-item">Eat fresh food</div>
+            <div class="tip-item">Wash vegetables</div>
+            <div class="tip-item">Avoid raw food</div>
           </div>
 
         </div>
       </div>
     </div>
 
-    <!-- ================= VILLAGE RISK & EMERGENCY ================= -->
+    <!-- ================= RIGHT PANEL ================= -->
     <div class="col-lg-6">
 
       <!-- Village Risk -->
       <div class="card">
         <div class="card-header-custom">
           <i class="fa-solid fa-location-dot section-icon"></i>
-          Current Village Risk Status
+          Village Risk Status
         </div>
 
         <div class="card-body-custom">
           <p class="info-text">
-            Live risk scores (0–100) for monitored villages:
+            Live risk scores:
           </p>
 
-          <div id="villageRiskList">
-            <!-- Populated by patient.js -->
-          </div>
+          <div id="villageRiskList"></div>
         </div>
       </div>
 
-      <!-- Emergency Contacts -->
+      <!-- Emergency -->
       <div class="card">
         <div class="card-header-custom">
           <i class="fa-solid fa-phone-volume section-icon"></i>
@@ -156,21 +184,13 @@
         <div class="card-body-custom">
 
           <div class="contact-card">
-            <div class="contact-title">National Health Helpline</div>
+            <div class="contact-title">Health Helpline</div>
             <div class="contact-number">104</div>
-            <div class="contact-note">24/7 Free Medical Advice</div>
-          </div>
-
-          <div class="contact-card">
-            <div class="contact-title">Assam Health Department</div>
-            <div class="contact-number">0361-2237718</div>
-            <div class="contact-note">Epidemic Control Cell</div>
           </div>
 
           <div class="contact-card emergency">
-            <div class="contact-title">Emergency Services</div>
+            <div class="contact-title">Emergency</div>
             <div class="contact-number">112</div>
-            <div class="contact-note">All Emergencies</div>
           </div>
 
         </div>

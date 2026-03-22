@@ -2,7 +2,7 @@
   --primary: #0f766e;
   --secondary: #14b8a6;
   --bg: #eef8f6;
-  --card: rgba(255,255,255,0.8);
+  --card: rgba(255,255,255,0.9);
   --border: rgba(15,118,110,0.1);
   --text: #0f2e2b;
   --muted: #4b6f6a;
@@ -36,25 +36,16 @@ body {
   font-weight:700;
   color:#fff;
   text-decoration:none;
-  display:flex;
-  align-items:center;
-}
-
-.brand-icon {
-  margin-right:10px;
-  color:#d1fae5;
 }
 
 .nav-links a {
   color:rgba(255,255,255,.85);
   text-decoration:none;
   margin-left:1.5rem;
-  font-weight:500;
 }
 
 .nav-links a:hover {
   color:#fff;
-  border-bottom:2px solid #d1fae5;
 }
 
 /* HEADER */
@@ -68,17 +59,10 @@ body {
 .page-header h1 {
   font-family:'Playfair Display',serif;
   font-size:1.8rem;
-  display:flex;
-  align-items:center;
-}
-
-.section-icon {
-  margin-right:10px;
 }
 
 .page-header p {
   color:rgba(255,255,255,.85);
-  margin-top:.5rem;
 }
 
 /* CONTENT */
@@ -87,29 +71,42 @@ body {
   padding:2rem 8%;
 }
 
+/* FORM SECTION (NEW 🔥) */
+
+.mb-3 {
+  background: #ffffff;
+  padding: 1rem;
+  border-radius: 12px;
+  border:1px solid var(--border);
+  margin-bottom: 1rem;
+}
+
+.mb-3 label {
+  font-weight:600;
+  margin-bottom:5px;
+}
+
+.form-control,
+.form-select {
+  border-radius:10px;
+  border:1px solid var(--border);
+}
+
 /* CARD */
 
 .card {
   background:var(--card);
-  backdrop-filter:blur(12px);
   border-radius:18px;
   border:1px solid var(--border);
-  box-shadow:0 10px 30px rgba(15,118,110,.08);
+  box-shadow:0 10px 25px rgba(0,0,0,0.05);
   margin-bottom:1.5rem;
-  transition:.3s;
-}
-
-.card:hover {
-  transform:translateY(-6px);
 }
 
 .card-header-custom {
-  padding:1.2rem 1.5rem;
+  padding:1.2rem;
   font-weight:600;
-  border-bottom:1px solid var(--border);
-  display:flex;
-  align-items:center;
   color:var(--primary);
+  border-bottom:1px solid var(--border);
 }
 
 .card-body-custom {
@@ -118,38 +115,24 @@ body {
 
 /* SYMPTOMS */
 
-.info-text {
-  color:var(--muted);
-  font-size:.9rem;
-  margin-bottom:1rem;
-}
-
 .symptom-item {
   display:flex;
   align-items:center;
-  gap:.75rem;
-  padding:.8rem 1rem;
-  border:1.5px solid var(--border);
-  border-radius:12px;
-  margin-bottom:.6rem;
+  gap:.7rem;
+  padding:.7rem 1rem;
+  border:1px solid var(--border);
+  border-radius:10px;
+  margin-bottom:.5rem;
   cursor:pointer;
-  transition:.2s;
 }
 
 .symptom-item:hover {
+  background:#f0fdfa;
   border-color:var(--primary);
-  background:#f5fffd;
 }
 
-.symptom-item input[type=checkbox] {
-  width:18px;
-  height:18px;
+.symptom-item input {
   accent-color:var(--primary);
-}
-
-.symptom-item label {
-  font-weight:500;
-  cursor:pointer;
 }
 
 /* BUTTON */
@@ -158,41 +141,45 @@ body {
   background:linear-gradient(135deg,var(--primary),var(--secondary));
   color:#fff;
   border:none;
-  border-radius:50px;
-  padding:.8rem;
+  border-radius:30px;
+  padding:.9rem;
   font-weight:600;
   width:100%;
-  margin-top:.5rem;
+  margin-top:1rem;
   transition:.3s;
 }
 
 .btn-check-risk:hover {
   transform:translateY(-2px);
-  box-shadow:0 6px 20px rgba(15,118,110,.25);
+  box-shadow:0 5px 15px rgba(15,118,110,.3);
 }
 
-/* RESULT PANEL */
+/* RESULT PANEL (IMPROVED 🔥) */
 
 .result-panel {
-  border-radius:16px;
-  padding:1.2rem;
   display:none;
+  padding:1rem;
+  border-radius:14px;
   margin-top:1rem;
 }
 
+.result-panel.show {
+  display:block;
+}
+
 .result-panel.high {
-  background:#fef2f2;
-  border:2px solid #dc2626;
+  background:#fee2e2;
+  border-left:6px solid #dc2626;
 }
 
 .result-panel.moderate {
-  background:#fffbeb;
-  border:2px solid #f59e0b;
+  background:#fef3c7;
+  border-left:6px solid #f59e0b;
 }
 
 .result-panel.low {
-  background:#ecfdf5;
-  border:2px solid #10b981;
+  background:#d1fae5;
+  border-left:6px solid #10b981;
 }
 
 /* VILLAGE RISK */
@@ -205,125 +192,50 @@ body {
   border-bottom:1px solid var(--border);
 }
 
-.v-fill.high { background:#dc2626; }
-.v-fill.moderate { background:#f59e0b; }
-.v-fill.low { background:#10b981; }
-
 .v-bar {
   flex:1;
-  margin:0 1rem;
+  margin:0 10px;
   height:8px;
-  background:#e6f4f1;
-  border-radius:4px;
-  overflow:hidden;
+  background:#e5f5f2;
+  border-radius:5px;
 }
 
 .v-fill {
   height:100%;
-  transition:.6s;
 }
 
-@media(max-width:768px){
-  .main-content { padding:1.5rem; }
+.v-fill.high { background:#dc2626; }
+.v-fill.moderate { background:#f59e0b; }
+.v-fill.low { background:#10b981; }
+
+/* CONTACT */
+
+.contact-card {
+  padding:1rem;
+  border-radius:12px;
+  margin-bottom:.8rem;
+  background:#fff;
 }
 
-/* ================= PREVENTION GUIDELINES ================= */
+.contact-card.emergency {
+  background:#fee2e2;
+}
+
+/* PREVENTION */
 
 .tips-section {
-  background: linear-gradient(145deg, #f8fffd, #ecfdf5);
-  border: 1px solid rgba(15,118,110,0.08);
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-shadow: 0 6px 20px rgba(15,118,110,0.06);
-  transition: 0.3s ease;
-}
-
-.tips-section:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(15,118,110,0.12);
-}
-
-.tips-section h6 {
-  font-weight: 700;
-  color: var(--primary);
-  margin-bottom: 1rem;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
+  padding:1rem;
+  background:#f0fdfa;
+  border-radius:12px;
 }
 
 .tip-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.6rem;
-  margin-bottom: 0.6rem;
-  font-size: 0.9rem;
-  color: var(--text);
-  line-height: 1.5;
-  position: relative;
-  padding-left: 1.2rem;
+  font-size:.9rem;
+  margin-bottom:.4rem;
 }
 
-.tip-item::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 6px;
-  width: 8px;
-  height: 8px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  border-radius: 50%;
-}
+/* RESPONSIVE */
 
-/* ================= EMERGENCY CONTACTS ================= */
-
-.contact-card {
-  background: linear-gradient(145deg, #ffffff, #f3fcfa);
-  border: 1px solid rgba(15,118,110,0.08);
-  border-radius: 16px;
-  padding: 1.2rem 1.3rem;
-  margin-bottom: 1rem;
-  transition: 0.3s ease;
-  box-shadow: 0 6px 20px rgba(15,118,110,0.06);
-}
-
-.contact-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(15,118,110,0.15);
-}
-
-.contact-title {
-  font-weight: 600;
-  color: var(--primary);
-  font-size: 0.95rem;
-}
-
-.contact-number {
-  font-size: 1.6rem;
-  font-weight: 700;
-  margin: 0.4rem 0;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.contact-note {
-  font-size: 0.8rem;
-  color: var(--muted);
-}
-
-/* Emergency Highlight Card */
-
-.contact-card.emergency {
-  background: linear-gradient(135deg, #fef2f2, #fee2e2);
-  border: 1px solid #dc2626;
-}
-
-.contact-card.emergency .contact-title {
-  color: #b91c1c;
-}
-
-.contact-card.emergency .contact-number {
-  background: linear-gradient(135deg, #dc2626, #b91c1c);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+@media(max-width:768px){
+  .main-content { padding:1rem; }
 }
