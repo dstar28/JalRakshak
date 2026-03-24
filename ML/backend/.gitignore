@@ -1,0 +1,30 @@
+# python cache
+__pycache__/
+*.pyc
+
+# virtual env
+venv/
+.env
+.venv/
+
+# vscode
+.vscode/
+
+# logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# node
+node_modules/
+
+# =================
+# DO NOT IGNORE MODEL
+# =================
+
+# keep these
+# model.pkl
+# symptom_model.pkl
+# dataset.csv

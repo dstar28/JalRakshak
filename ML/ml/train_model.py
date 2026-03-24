@@ -1,27 +1,47 @@
 import pandas as pd
+import joblib
+
+from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
-import joblib, os
 
-base_dir = os.path.dirname(__file__)
-data_path = os.path.join(base_dir, "../dataset/ne_rural_dataset.csv")
 
-data = pd.read_csv(data_path)
+data = pd.read_csv("../dataset/ne_rural_dataset.csv")
 
 X = data[[
-    "rainfall","diarrhea","cholera",
-    "typhoid","population","month","year"
+    "rainfall",
+    "diarrhea",
+    "cholera",
+    "typhoid",
+    "population",
+    "month",
+    "year"
 ]]
 
 y = data["outbreak"]
 
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
 
-model = RandomForestClassifier(n_estimators=300, random_state=42)
-model.fit(X_scaled,y)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y,
+    test_size=0.2,
+    random_state=42
+)
 
-joblib.dump(model, os.path.join(base_dir,"model.pkl"))
-joblib.dump(scaler, os.path.join(base_dir,"scaler.pkl"))
 
-print("Model trained & saved")
+model = Pipeline([
+    ("scaler", StandardScaler()),
+    ("rf", RandomForestClassifier(
+        n_estimators=600,
+        max_depth=15,
+        random_state=42
+    ))
+])
+
+model.fit(X_train, y_train)
+
+print("Accuracy:", model.score(X_test, y_test))
+
+joblib.dump(model, "model.pkl")
+
+print("model saved")

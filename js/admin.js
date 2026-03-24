@@ -1,78 +1,88 @@
-document.getElementById("predictBtn").addEventListener("click", predictOutbreak);
+document
+  .getElementById("predictBtn")
+  .addEventListener("click", predictOutbreak);
+
 
 async function predictOutbreak() {
 
-  console.log("Button clicked");
+  const rainfall =
+    parseFloat(document.getElementById("rainfall").value) || 0;
 
-  // get values
-  const rainfall = parseFloat(document.getElementById("rainfall").value) || 0;
-  const diarrhea = parseFloat(document.getElementById("diarrhea").value) || 0;
-  const cholera = parseFloat(document.getElementById("cholera").value) || 0;
-  const typhoid = parseFloat(document.getElementById("typhoid").value) || 0;
+  const diarrhea =
+    parseFloat(document.getElementById("diarrhea").value) || 0;
+
+  const cholera =
+    parseFloat(document.getElementById("cholera").value) || 0;
+
+  const typhoid =
+    parseFloat(document.getElementById("typhoid").value) || 0;
 
   const population = 12000;
-  const date = document.getElementById("reportDate").value;
 
-  // validation
+  const date =
+    document.getElementById("reportDate").value;
+
   if (!date) {
-    alert("Please select a date");
+    alert("Select date");
     return;
   }
 
   const d = new Date(date);
+
   const month = d.getMonth() + 1;
   const year = d.getFullYear();
 
+
   try {
 
-    const response = await fetch("http://127.0.0.1:5000/predict", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        rainfall,
-        diarrhea,
-        cholera,
-        typhoid,
-        population,
-        month,
-        year
-      })
-    });
+    const response = await fetch(
+      "http://127.0.0.1:5000/predict",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          rainfall,
+          diarrhea,
+          cholera,
+          typhoid,
+          population,
+          month,
+          year
+        })
+      }
+    );
 
     const result = await response.json();
 
-    console.log("API Response:", result);
+    const prob = result.percent;
+    const risk = result.risk;
 
-    const prob = result.outbreakProbability;
-
-    // determine risk level
-    let risk = "Low";
     let cssClass = "low";
 
-    if (prob > 70) {
-      risk = "High";
-      cssClass = "high";
-    } else if (prob > 40) {
-      risk = "Moderate";
-      cssClass = "moderate";
-    }
+    if (risk === "HIGH") cssClass = "high";
+    else if (risk === "MODERATE") cssClass = "moderate";
 
-    // update UI
-    const resultBox = document.getElementById("predictionResult");
+    const resultBox =
+      document.getElementById("predictionResult");
 
     resultBox.style.display = "block";
-    resultBox.className = "prediction-result " + cssClass;
+
+    resultBox.className =
+      "prediction-result " + cssClass;
 
     resultBox.innerHTML = `
       <div class="prob-big">${prob}%</div>
       <div class="risk-badge-big">${risk} Risk</div>
-      <div>AI Predicted Outbreak Probability</div>
+      <div>AI Predicted Outbreak Risk</div>
     `;
 
-  } catch (error) {
-    console.error("Error:", error);
-    alert("❌ Unable to connect to backend. Make sure Flask is running.");
   }
+  catch (err) {
+
+    alert("Backend not running");
+
+  }
+
 }
