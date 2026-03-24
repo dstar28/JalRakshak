@@ -2,7 +2,6 @@ document
   .getElementById("predictBtn")
   .addEventListener("click", predictOutbreak);
 
-
 async function predictOutbreak() {
 
   const rainfall =
@@ -32,11 +31,10 @@ async function predictOutbreak() {
   const month = d.getMonth() + 1;
   const year = d.getFullYear();
 
-
   try {
 
     const response = await fetch(
-      "http://127.0.0.1:5000/predict",
+      "https://jalrakshak-xntn.onrender.com/predict",
       {
         method: "POST",
         headers: {
