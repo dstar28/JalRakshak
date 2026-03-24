@@ -10,8 +10,7 @@ CORS(app)
 # ADMIN MODEL (DO NOT CHANGE)
 # =========================
 
-model = joblib.load("../ml/model.pkl")
-
+model = joblib.load("model.pkl")
 
 @app.route("/")
 def home():
@@ -52,9 +51,7 @@ def predict():
 # PATIENT ML MODEL (NEW PART)
 # =========================
 
-symptom_model = joblib.load(
-    "../../Patient ML/ml/symptom_model.pkl"
-)
+symptom_model = joblib.load("symptom_model.pkl")
 
 
 @app.route("/predict_disease", methods=["POST"])
