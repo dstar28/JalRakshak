@@ -34,7 +34,7 @@ async function predictOutbreak() {
   try {
 
     const response = await fetch(
-      "https://jalrakshak-xntn.onrender.com/predict",
+      "https://jalrakshak-akth.onrender.com/predict",
       {
         method: "POST",
         headers: {

@@ -1,3 +1,5 @@
+const BACKEND_URL = "https://jalrakshak-akth.onrender.com";
+
 document.addEventListener('DOMContentLoaded', () => {
 
   console.log("JS Loaded ✅");
@@ -117,7 +119,7 @@ async function evaluateSymptoms() {
   try {
 
     const res = await fetch(
-      "https://jalrakshak-xntn.onrender.com/predict_disease",
+      `${BACKEND_URL}/predict_disease`,
       {
         method: "POST",
         headers: {
