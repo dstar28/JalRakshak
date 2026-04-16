@@ -139,3 +139,19 @@ body {
     max-width: 350px;
   }
 }
+.redirect-text {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.redirect-text a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.redirect-text a:hover {
+  text-decoration: underline;
+}

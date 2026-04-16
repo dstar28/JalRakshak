@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+
+  <meta charset="UTF-8">
+  <title>Sign Up — JalRakshak</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="css/login.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="brand">
+    <i class="fa-solid fa-droplet brand-icon"></i>
+    JalRakshak
+  </a>
+</nav>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Create Account</h2>
+
+    <input type="text" id="firstName" placeholder="First Name">
+    <input type="text" id="lastName" placeholder="Last Name">
+
+    <input type="date" id="dob">
+    <input type="text" id="age" placeholder="Age" readonly>
+
+    <input type="email" id="email" placeholder="Email">
+
+    <input type="password" id="password" placeholder="Password">
+    <input type="password" id="confirmPassword" placeholder="Confirm Password">
+
+    <button id="signupBtn">Sign Up</button>
+
+    <p id="errorMsg"></p>
+
+    <p class="redirect-text">
+      Already have an account? <a href="login.html">Login</a>
+    </p>
+  </div>
+
+</div>
+
+<script>
+  const SUPABASE_URL = "https://ckhloxjldjmexelcjwqx.supabase.co";
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNraGxveGpsZGptZXhlbGNqd3F4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3NTA0NzcsImV4cCI6MjA4OTMyNjQ3N30.awjhebQyvbdkitEK7pyfNc5sUxzY_th6YN_kDDU_exY";
+
+  const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const dobInput = document.getElementById("dob");
+  const ageInput = document.getElementById("age");
+  const errorMsg = document.getElementById("errorMsg");
+
+  // ================= AGE AUTO CALC =================
+  dobInput.addEventListener("change", () => {
+    const dob = new Date(dobInput.value);
+    const today = new Date();
+
+    let age = today.getFullYear() - dob.getFullYear();
+    const m = today.getMonth() - dob.getMonth();
+
+    if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+      age--;
+    }
+
+    ageInput.value = age;
+  });
+
+  // ================= SIGN UP =================
+  document.getElementById("signupBtn").addEventListener("click", async () => {
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const dobRaw = document.getElementById("dob").value;
+    const age = document.getElementById("age").value;
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirm = document.getElementById("confirmPassword").value;
+
+    // Basic validation
+    if (!firstName || !lastName || !dobRaw || !email || !password) {
+      errorMsg.textContent = "Please fill all fields";
+      errorMsg.style.color = "red";
+      return;
+    }
+
+    if (!age) {
+      errorMsg.textContent = "Please select date of birth";
+      errorMsg.style.color = "red";
+      return;
+    }
+
+    // Convert DOB to proper format
+    const dob = new Date(dobRaw).toISOString().split("T")[0];
+
+    // Password validation
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+
+    if (!passwordRegex.test(password)) {
+      errorMsg.textContent = "Password must be 6+ chars, include a letter & number";
+      errorMsg.style.color = "red";
+      return;
+    }
+
+    if (password !== confirm) {
+      errorMsg.textContent = "Passwords do not match";
+      errorMsg.style.color = "red";
+      return;
+    }
+
+    // Check duplicate email
+    const { data: existingUser } = await client
+      .from("users")
+      .select("*")
+      .eq("email", email);
+
+    if (existingUser && existingUser.length > 0) {
+      errorMsg.textContent = "Email already registered!";
+      errorMsg.style.color = "red";
+      return;
+    }
+
+    // Insert user
+    const { data, error } = await client.from("users").insert([{
+      first_name: firstName,
+      last_name: lastName,
+      dob: dob,
+      age: age,
+      email: email,
+      password: password
+    }]);
+
+    console.log("ERROR:", error);
+
+    if (error) {
+      errorMsg.textContent = "Error creating account";
+      errorMsg.style.color = "red";
+    } else {
+      errorMsg.textContent = "Account created! Redirecting...";
+      errorMsg.style.color = "green";
+
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 1500);
+    }
+  });
+</script>
+
+</body>
+</html>

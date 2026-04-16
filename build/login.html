@@ -4,10 +4,10 @@
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <!-- Font Awesome (for droplet icon) -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- Google Fonts (match your dashboard/admin style) -->
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
 
   <meta charset="UTF-8">
@@ -33,23 +33,14 @@
   <div class="card">
     <h2>Login</h2>
 
-    <input type="text" id="loginUsername" placeholder="Username">
+    <input type="email" id="loginEmail" placeholder="Email">
     <input type="password" id="loginPassword" placeholder="Password">
 
     <button id="loginBtn">Login</button>
-  </div>
 
-  <!-- SIGN UP -->
-  <div class="card">
-    <h2>Sign Up</h2>
-
-    <input type="text" id="signupUsername" placeholder="Username">
-    <input type="password" id="signupPassword" placeholder="Password">
-    <input type="password" id="confirmPassword" placeholder="Confirm Password">
-
-    <button id="signupBtn">Create Account</button>
-
-    <p id="errorMsg"></p>
+    <p class="redirect-text">
+      New here? <a href="signup.html">Sign Up</a>
+    </p>
   </div>
 
 </div>
@@ -61,74 +52,27 @@
 
   const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  const signupBtn = document.getElementById("signupBtn");
   const loginBtn = document.getElementById("loginBtn");
-  const errorMsg = document.getElementById("errorMsg");
 
-  // ================= SIGN UP =================
-  signupBtn.addEventListener("click", async () => {
-    const username = document.getElementById("signupUsername").value.trim();
-    const password = document.getElementById("signupPassword").value;
-    const confirm = document.getElementById("confirmPassword").value;
-
-    const usernameRegex = /^[a-zA-Z0-9_]+$/;
-
-    // Username validation
-    if (!usernameRegex.test(username)) {
-      errorMsg.textContent = "Only letters, numbers, underscore allowed";
-      errorMsg.style.color = "red";
-      return;
-    }
-
-    // Password match
-    if (password !== confirm) {
-      errorMsg.textContent = "Passwords do not match!";
-      errorMsg.style.color = "red";
-      return;
-    }
-
-    // Check if username exists
-    const { data: existingUser } = await client
-      .from("users")
-      .select("*")
-      .eq("username", username);
-
-    if (existingUser.length > 0) {
-      errorMsg.textContent = "Username already taken!";
-      errorMsg.style.color = "red";
-      return;
-    }
-
-    // Insert user
-    const { error } = await client
-      .from("users")
-      .insert([{ username, password }]);
-
-    if (error) {
-      errorMsg.textContent = "Error creating account";
-      errorMsg.style.color = "red";
-    } else {
-      errorMsg.textContent = "Account created successfully!";
-      errorMsg.style.color = "green";
-    }
-  });
-
-  // ================= LOGIN =================
   loginBtn.addEventListener("click", async () => {
-    const username = document.getElementById("loginUsername").value.trim();
+    const email = document.getElementById("loginEmail").value.trim();
     const password = document.getElementById("loginPassword").value;
 
-    const { data: user } = await client
+    const { data: user, error } = await client
       .from("users")
       .select("*")
-      .eq("username", username)
+      .eq("email", email)
       .eq("password", password);
 
-    if (user.length > 0) {
+    if (error) {
+      alert("Error connecting to database");
+      return;
+    }
+
+    if (user && user.length > 0) {
       window.location.href = "admin.html";
     } else {
-      errorMsg.textContent = "Invalid username or password";
-      errorMsg.style.color = "red";
+      alert("Invalid email or password");
     }
   });
 </script>
