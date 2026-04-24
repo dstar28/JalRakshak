@@ -104,7 +104,7 @@
     const dob = new Date(dobRaw).toISOString().split("T")[0];
 
     // Password validation
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    const passwordRegex =/^(?=.*[A-Za-z])(?=.*\d).{6,}$/;
 
     if (!passwordRegex.test(password)) {
       errorMsg.textContent = "Password must be 6+ chars, include a letter & number";
